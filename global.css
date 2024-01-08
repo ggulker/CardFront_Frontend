@@ -1,0 +1,17 @@
+#loginBlock{
+    background-color: #66434C;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: .5vw;
+    border: 3vw ;
+    border-color: #B2BCAA;
+    box-shadow: .08vw .08vw .3vw #061214;
+    border-radius: 24px;
+}
+
+#inputBlock{
+    margin-left: 1vw;
+}
+
