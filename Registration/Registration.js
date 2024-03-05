@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 async function createAccount() {
     let usr = document.getElementById("username").value;
     let pass = document.getElementById("password").value;
+    let confirmPass = document.getElementById("conPassword").value;
     let email = document.getElementById("email").value;
     let invalidText = document.getElementById("badLogin");
 
@@ -22,6 +23,13 @@ async function createAccount() {
         invalidText.textContent = "Valid Passwords Contain between 8-64 characters and contain 1 of the following characters !,@,#,$,%,^";
         invalidText.style.display = "block" ;
         return;
+    }
+
+    if(pass != confirmPass)
+    {
+        invalidText.textContent = "Passwords do not match";
+        invalidText.style.display = "block" ;
+        return;       
     }
 
     invalidText.style.display = "none" ;

@@ -1,7 +1,9 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-    
+    if(isLoginCookiePresent())
+    {
+        window.location.href = "../DashBoard/dashboard.html";
+    }
     //button click to login
-    const el = document.getElementById("loginButton");
     el.addEventListener("click", startLogin);
 
     //add enter login
@@ -28,6 +30,7 @@ async function startLogin() {
 
     try{
         let hash = CryptoJS.SHA256(pass);
+        console.log("Sent");
         const response = await fetch
         (
             "http://localhost:8080/user",
@@ -49,11 +52,12 @@ async function startLogin() {
             }
         );
 
-        const user = await response.json();
+        const jwToken = await response.text();
+        console.log(jwToken);
         if(response.ok)
         {
-            console.log(user.email);
-            window.location.href = "../DashBoard/dashboard.html";            
+            setCookie('JWToken', jwToken, 24);
+            window.location.href = "../DashBoard/dashboard.html";
         }
         else
         {
