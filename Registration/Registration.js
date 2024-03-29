@@ -47,7 +47,12 @@ async function createAccount() {
             return;
         }
         
-        window.location.href = "../DashBoard/dashboard.html";    
+        if(response.ok)
+        {
+            const jwToken = await response.text();
+            setCookie('JWToken', jwToken, 24);
+            window.location.href = "../DashBoard/dashboard.html";
+        } 
     }
     catch(error)
     {

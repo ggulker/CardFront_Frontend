@@ -17,11 +17,21 @@ async function forgotPassword() {
 
 
     invalidText.style.display = "none" ;
+    const url = `http://localhost:8080/user/password/${usr}`
     try{
-        let response = await fetch("http://localhost:8080/user/password/${usr}",{method:'PUT',   headers: {
+        let response = await fetch(url,{method:'PUT',   headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },body: JSON.stringify("")});
+        if(response.ok || response.status == 404){
+            invalidText.textContent = "If an email exists for that username an email has been sent.";
+            invalidText.style.display = "block" ;
+        }
+        else
+        {
+            invalidText.textContent = "An error has occured please try again later.";
+            invalidText.style.display = "block" ;            
+        }
     }
     catch(error)
     {

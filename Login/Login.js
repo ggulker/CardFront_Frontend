@@ -1,8 +1,14 @@
 window.addEventListener("DOMContentLoaded", (event) => {
     if(isLoginCookiePresent())
     {
-        window.location.href = "../DashBoard/dashboard.html";
+        console.log('present');
+        if(isTokenValid()){
+            console.log('valid');
+            window.location.href = "../DashBoard/dashboard.html";
+        }
     }
+
+    const el = document.getElementById("loginButton");
     //button click to login
     el.addEventListener("click", startLogin);
 
@@ -31,26 +37,18 @@ async function startLogin() {
     try{
         let hash = CryptoJS.SHA256(pass);
         console.log("Sent");
-        const response = await fetch
-        (
-            "http://localhost:8080/user",
-            {
-                method:'POST',   
-                headers: 
-                    {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                body: 
-                    JSON.stringify
-                    (
-                        {
-                            username: usr, 
-                            password: hash.toString()
-                        }
-                    )
-            }
-        );
+        const response = await fetch("http://localhost:8080/user", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: usr,
+                password: hash.toString()
+            }),
+            mode: 'cors'
+        });
 
         const jwToken = await response.text();
         console.log(jwToken);
